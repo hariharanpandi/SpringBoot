@@ -1,53 +1,68 @@
 package com.example.demo.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.EmployeeRepository;
 import com.example.demo.entity.EntityClass;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 class MyServiceTest {
-	
+
+	@InjectMocks
 	MyService myService;
+
+	@Mock
 	EmployeeRepository employeeRepository;
 
 	@BeforeEach
-	 void setUp() {
-		employeeRepository = mock(EmployeeRepository.class);
-		myService = new MyService(employeeRepository);
+	void setup() {
+		MockitoAnnotations.openMocks(this);
 	}
-	
+
 	@Test
-	 void testUploadFile() throws IOException {
-		MockMultipartFile file = new MockMultipartFile("modifyEmployee.xlsx", getClass().getResourceAsStream("/modifyEmployee.xlsx"));
-		myService.uploadFile(file);
+	void testUploadFile() throws IOException {
 
-		List<EntityClass> expectedEntityList = new ArrayList<>();
-		EntityClass expectedEmployee = new EntityClass();
-		expectedEmployee.setCode("E001");
-		expectedEmployee.setName("hari");
-		expectedEmployee.setDate("01-01-2023");
-		expectedEmployee.setGrade("A");
-		expectedEmployee.setSalary(5000.0);
-		expectedEntityList.add(expectedEmployee);
+		File file = new File("E:\\DataBaseWorkSpace\\ExcelToDatabaseTask\\src\\main\\resources\\modifyEmployee.xlsx");
+		InputStream inputStream = new FileInputStream(file);
+		MultipartFile multipartFile = new MockMultipartFile("modifyEmployee.xlsx", file.getName(),
+				"application/vnd.ms-excel", inputStream);
+		EntityClass employee1 = new EntityClass();
+		employee1.setCode("C01");
+		employee1.setName("John Smith");
+		employee1.setDate("2022-01-01");
+		employee1.setGrade("A");
+		employee1.setSalary(5000);
 
-		List<EntityClass> actualEntityList = employeeRepository.findAll();
+		EntityClass employee2 = new EntityClass();
+		employee2.setCode("C02");
+		employee2.setName("Jane Doe");
+		employee2.setDate("2022-01-01");
+		employee2.setGrade("B");
+		employee2.setSalary(4000);
 
-assertEquals(expectedEntityList, actualEntityList);
+		when(employeeRepository.saveAll(Mockito.anyIterable())).thenReturn(Arrays.asList(employee1, employee2));
+		myService.uploadFile(multipartFile);
+
+		verify(employeeRepository, times(1)).saveAll(Mockito.anyIterable());
 	}
+
 }

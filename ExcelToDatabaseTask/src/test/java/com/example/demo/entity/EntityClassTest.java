@@ -42,4 +42,15 @@ class EntityClassTest {
 		entity.setSalary(salary);
 		assertEquals(salary, entity.getSalary(), 0.01);
 	}
+	
+	 @Test
+	     void testConstructor() {
+	        EntityClass employee = new EntityClass("code1", "name1", "date1", "grade1", 1000.0);
+
+	        assertEquals("code1", employee.getCode());
+	        assertEquals("name1", employee.getName());
+	        assertEquals("date1", employee.getDate());
+	        assertEquals("grade1", employee.getGrade());
+	        assertEquals(1000.0, employee.getSalary(), 0.01); // use a delta value to allow for floating-point imprecision
+	    }
 }

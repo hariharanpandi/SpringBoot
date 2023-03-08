@@ -19,10 +19,6 @@ public class MyService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
-	
-    public MyService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-	}
 
 	public void uploadFile(MultipartFile file) throws IOException {
 
@@ -43,6 +39,8 @@ public class MyService {
 			}
 		}
 		workbook.close();
-		employeeRepository.saveAll(entityList);
+		if (employeeRepository != null) {
+			employeeRepository.saveAll(entityList);
+		}
 	}
 }

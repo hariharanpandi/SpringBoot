@@ -14,12 +14,13 @@ public class EntityClass {
 	@Id
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	@Column(name = "Code")
 	private String code;
 
 	@Column(name = "Name")
 	private String name;
+
 	@Column(name = "Date_Of_Join")
 	private String date;
 	@Column(name = "Grade")
@@ -29,6 +30,15 @@ public class EntityClass {
 
 	public EntityClass() {
 		super();
+	}
+
+	public EntityClass(String code, String name, String date, String grade, double salary) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.date = date;
+		this.grade = grade;
+		this.salary = salary;
 	}
 
 	public String getCode() {
