@@ -1,4 +1,4 @@
-package com.aaludra.restapi.learning;
+package com.aaludra.restapi.users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +31,10 @@ public class UserService {
 		users.setId(++userId);
 		user.add(users);
 		return users;
+	}
+	
+	public void deleteById(int id) {
+		Predicate<? super Users> predicate= users -> users.getId()==id;
+		user.removeIf(predicate);
 	}
 }
