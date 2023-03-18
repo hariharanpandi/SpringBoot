@@ -9,11 +9,11 @@ public class JobPortal {
 
 	private int id;
 	private String description;
-	private byte exprience;
+	private String exprience;
 	private String profile;
 	private String[] skill;
 
-	public JobPortal(int id, String description, byte exprience, String profile, String[] skill) {
+	public JobPortal(int id, String description, String exprience, String profile, String[] skill) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -42,11 +42,11 @@ public class JobPortal {
 		this.description = description;
 	}
 
-	public byte getExprience() {
+	public String getExprience() {
 		return exprience;
 	}
 
-	public void setExprience(byte exprience) {
+	public void setExprience(String exprience) {
 		this.exprience = exprience;
 	}
 
