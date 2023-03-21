@@ -1,8 +1,7 @@
 package com.nosql.jobhiringportal.model;
 
-import java.util.Arrays;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -10,36 +9,26 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class ListOfJob {
 
 	@Id
-	private int id;
+	private String id;
 	@Field(name = "name")
 	private String name;
+	@DBRef
 	private Department department;
 	private String description;
 	private String exprience;
 	private String profile;
 	private String[] skill;
 
-	public ListOfJob(int id, String name, Department department, String description, String exprience, String profile,
-			String[] skill) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.department = department;
-		this.description = description;
-		this.exprience = exprience;
-		this.profile = profile;
-		this.skill = skill;
-	}
-
+	
 	public ListOfJob() {
 		super();
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -49,6 +38,10 @@ public class ListOfJob {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Department getDepartment() {
+		return department;
 	}
 
 	public void setDepartment(Department department) {
@@ -86,11 +79,4 @@ public class ListOfJob {
 	public void setSkill(String[] skill) {
 		this.skill = skill;
 	}
-
-	@Override
-	public String toString() {
-		return "ListOfJob [id=" + id + ", name=" + name + ", department=" + department + ", description=" + description
-				+ ", exprience=" + exprience + ", profile=" + profile + ", skill=" + Arrays.toString(skill) + "]";
-	}
-
 }

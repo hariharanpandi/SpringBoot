@@ -1,8 +1,14 @@
 package com.nosql.jobhiringportal.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document(collection = "Department")
 public class Department {
+
+	@Id
+	private String id;
 
 	@Field(name = "department_name")
 	private String departmentname;
@@ -25,9 +31,12 @@ public class Department {
 		this.departmentcode = departmentcode;
 	}
 
-	@Override
-	public String toString() {
-		return "Department [departmentname=" + departmentname + ", departmentcode=" + departmentcode + "]";
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
