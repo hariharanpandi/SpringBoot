@@ -1,7 +1,6 @@
 package com.blog.api.service;
 
-import java.util.List;
-
+import com.blog.api.payload.PageResponse;
 import com.blog.api.payload.PostDto;
 
 public interface PostServices {
@@ -10,8 +9,15 @@ public interface PostServices {
 	PostDto createpost(PostDto postDto);
 
 	// get all post
-	List<PostDto> findAll();
+	PageResponse findAll(int pageno, int pagesize, String sortby, String sortdir);
 
 	// get by id
 	PostDto findByPostId(long id);
+	
+	// update
+	PostDto updatePost(PostDto postDto, long id);
+	
+	//delete
+	String deletePost(long id);
+	
 }
