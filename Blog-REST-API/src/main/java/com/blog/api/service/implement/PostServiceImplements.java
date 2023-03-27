@@ -2,6 +2,7 @@ package com.blog.api.service.implement;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,28 +20,20 @@ import com.blog.api.service.PostServices;
 public class PostServiceImplements implements PostServices {
 
 	private PostRepository postRepository;
+	private ModelMapper mapper;
 
-	public PostServiceImplements(PostRepository postRepository) {
+	public PostServiceImplements(PostRepository postRepository, ModelMapper mapper) {
 		super();
 		this.postRepository = postRepository;
+		this.mapper=mapper;
 	}
 
 	private PostDto entityToDto(Post newpost) {
-		PostDto response = new PostDto();
-		response.setId(newpost.getId());
-		response.setTitle(newpost.getTitle());
-		response.setDescription(newpost.getDescription());
-		response.setContent(newpost.getContent());
-		return response;
+		return mapper.map(newpost, PostDto.class);
 	}
 
 	private Post dtoToEntity(PostDto postDto) {
-		Post post = new Post();
-		post.setId(postDto.getId());
-		post.setTitle(postDto.getTitle());
-		post.setDescription(postDto.getDescription());
-		post.setContent(postDto.getContent());
-		return post;
+		return mapper.map(postDto, Post.class);
 	}
 
 	@Override
@@ -54,6 +47,7 @@ public class PostServiceImplements implements PostServices {
 	@Override
 	public PageResponse findAll(int pageno, int pagesize, String sortby, String sortdir) {
 
+		
 		Sort sort = sortdir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortby).ascending()
 				: Sort.by(sortby).descending();
 		Pageable pageable = PageRequest.of(pageno, pagesize, sort);

@@ -1,10 +1,15 @@
 package com.blog.api.bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,6 +30,9 @@ public class Post {
 	private String content;
 	@Column(name = "description", nullable = false)
 	private String description;
+
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Comment> comment = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -56,6 +64,14 @@ public class Post {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
 	}
 
 }
