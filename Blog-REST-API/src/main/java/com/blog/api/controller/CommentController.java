@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.api.payload.CommentDto;
+import com.blog.api.service.CommentService;
 import com.blog.api.service.implement.CommentServiceImplements;
 
 @RestController
 @RequestMapping("/api/blog/comment")
 public class CommentController {
 
-	private CommentServiceImplements commentServiceImplements;
+	private CommentService commentServiceImplements;
 
 	public CommentController(CommentServiceImplements commentServiceImplements) {
 		this.commentServiceImplements = commentServiceImplements;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.api.payload.PageResponse;
 import com.blog.api.payload.PostDto;
+import com.blog.api.service.PostServices;
 import com.blog.api.service.implement.PostServiceImplements;
 import com.blog.api.utils.AppConstants;
 
@@ -21,7 +22,7 @@ import com.blog.api.utils.AppConstants;
 @RequestMapping("/api/blog")
 public class BlogController {
 
-	private PostServiceImplements postService;
+	private PostServices postService;
 
 	public BlogController(PostServiceImplements postService) {
 		super();
