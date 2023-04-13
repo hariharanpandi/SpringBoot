@@ -37,7 +37,7 @@ class EmployeeTest {
     @Test
     void testConstructor() {
        Employee employee = new Employee(12,"E001", "hari", "12.12.12", "A", 1000);
-
+       assertEquals(12,employee.getId());
        assertEquals("E001", employee.getCode());
        assertEquals("hari", employee.getName());
        assertEquals("12.12.12", employee.getDate());
