@@ -5,7 +5,7 @@ CREATE TABLE post (
     description VARCHAR(255)
 );
 
-CREATE TABLE comment (
+CREATE TABLE comments (
     comment_id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     name VARCHAR(255),
     email VARCHAR(255),

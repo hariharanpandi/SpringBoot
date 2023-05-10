@@ -50,17 +50,17 @@ public class BlogController {
 		return new ResponseEntity<>(postService.createpost(postDto), HttpStatus.OK);
 	}
 
-	@Operation(tags = "Blogs", summary = "Retriving all blog post from Blog application")
+	@Operation(tags = "Blogs", summary = "Retrieving all blog post from Blog application")
 	@GetMapping
 	public PageResponse findAllPost(
-			@RequestParam(value = "pageno", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageno,
-			@RequestParam(value = "pagesize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pagesize,
-			@RequestParam(value = "sortby", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortby,
-			@RequestParam(value = "sortdir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortdir) {
+			@RequestParam(value = "page_no", defaultValue = AppConstants.DEFAULT_PAGE_NO, required = false) int pageno,
+			@RequestParam(value = "page_size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pagesize,
+			@RequestParam(value = "sort_by", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortby,
+			@RequestParam(value = "sort_dir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortdir) {
 		return postService.findAll(pageno, pagesize, sortby, sortdir);
 	}
 
-	@Operation(tags = "Blogs", summary = "Retriving blog post by post id")
+	@Operation(tags = "Blogs", summary = "Retrieving blog post by post id")
 	@GetMapping("/{id}")
 	public ResponseEntity<PostDto> findByPostId(@PathVariable long id) {
 		return ResponseEntity.ok(postService.findByPostId(id));
@@ -72,7 +72,7 @@ public class BlogController {
 		return ResponseEntity.ok(postService.updatePost(postDto, id));
 	}
 
-	@Operation(tags = "Blogs", summary = "Deleteing blog post by post id")
+	@Operation(tags = "Blogs", summary = "Deleting blog post by post id")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePost(@PathVariable long id) {
 		return new ResponseEntity<>(postService.deletePost(id), HttpStatus.OK);

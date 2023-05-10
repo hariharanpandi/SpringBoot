@@ -72,29 +72,5 @@ class OperationsTest {
     }
 	
   
-    @Test
-    void testUploadFiles() throws IOException {
-        // create a mock MultipartFile
-        MockMultipartFile file = new MockMultipartFile("file", "test.xlsx", "application/vnd.ms-excel", 
-                getClass().getClassLoader().getResourceAsStream("test.xlsx"));
-
-        Operations operations = new Operations();
-        operations.setEmployeeRepository(employeeRepository);
-
-        // call the uploadFile method
-        operations.uploadFile(file);
-
-        // assert that the result is as expected
-        // TODO: add your assertions here
-    }
-    
-    @Test
-    public void satartmain() throws IOException {
-    	MockMultipartFile file =new MockMultipartFile(null, getClass().getClassLoader().getResourceAsStream(null));
-    	
-    	Operations operation=new Operations();
-    	operations.uploadFile(file);
-    	
-    	Date
-    }
+   
 }
